@@ -1,6 +1,7 @@
 package libs;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 
 import javax.swing.text.AttributeSet;
@@ -18,7 +19,8 @@ public class TextConsole extends TextScreen implements ConsoleAPI{
 	public TextConsole() {
 		currentLine = 0;
 		currentPos = 0;
-		
+		Font fnt = new Font("monospace", 0, 12);
+		this.setFont(fnt);
 		screenAPI = getScreenAPI();
 	}
 	
