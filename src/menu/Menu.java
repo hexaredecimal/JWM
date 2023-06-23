@@ -18,13 +18,14 @@ public class Menu extends javax.swing.JPanel {
         events = new ArrayList<>();
         panel.setLayout(new MigLayout("wrap, fill, inset 0", "[center]", "[center]"));
         addSpace(20);
-        addItem("1", 0);
-        addItem("2", 1);
-        addItem("3", 2);
-        addItem("4", 3);
-        addItem("5", 4);
-        addItem("6", 5);
-        addItem("7", 6);
+        
+        String[] icons = new String[] {"browser", "calc", "editor", "term", "graph", "files", "mine"}; 
+        
+        int index = 0; 
+        for (String icon : icons) {
+            addItem(icon,index++);
+        }
+
         addSpace(20);
         repaint();
         revalidate();

@@ -52,21 +52,7 @@ public class Browser extends JInternalFrame {
   private void createNewTab() {
     JPanel panel = new JPanel(new BorderLayout());
     WebBrowserPane browserPane = new WebBrowserPane();
-    try {
-		browserPane.goToURL(new URL("https://google.com"));
-	} catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-//		e.printStackTrace();
-		StringBuilder sb = new StringBuilder(); 
-		sb
-		.append("Error: ")
-		.append("Failed to load url(")
-		.append(e.getMessage())
-		.append(") : ")
-		.append(e.getCause() != null ? e.getCause().toString() : "Unknown (Check if you have an Internet connection)");
-		JOptionPane.showMessageDialog(browserPane, sb.toString());
-	}
-    
+
     WebToolBar toolBar = new WebToolBar(browserPane);
     panel.add(toolBar, BorderLayout.NORTH);
     panel.add(new JScrollPane(browserPane), BorderLayout.CENTER);
@@ -106,6 +92,7 @@ public class Browser extends JInternalFrame {
     browser.setSize(640, 480);
     browser.setClosable(true);
     browser.setResizable(true);
+    browser.setVisible(true);
     return browser; 
   }
 }

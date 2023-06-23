@@ -650,6 +650,7 @@ public class NewWindow extends JInternalFrame {
     	JInternalFrame fr = new NewWindow(); 
     	fr.setClosable(true);
     	fr.setResizable(true);
+        fr.setVisible(true);
     	return fr; 
     }
 

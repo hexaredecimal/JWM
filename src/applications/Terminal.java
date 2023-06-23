@@ -72,7 +72,7 @@ public class Terminal extends javax.swing.JInternalFrame {
 
 	public static JInternalFrame Init() {
 		Terminal term = new Terminal();
-
+                term.setVisible(true);
 		return term;
 	}
 
