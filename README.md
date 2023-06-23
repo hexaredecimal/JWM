@@ -12,3 +12,13 @@
 > Fix the memory issues (Atleast improve it)
 
 > Add thread support
+
+## Supported Applications
+* WebBrowser
+* FileManager
+* Text editor (Multiple programming language support)
+* MineSweeper
+* Math Graph plotter
+* Calculator
+* Terminal
+
