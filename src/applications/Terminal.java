@@ -6,6 +6,8 @@ package applications;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -31,7 +33,7 @@ public class Terminal extends javax.swing.JInternalFrame {
 		this.setClosable(true);
 		this.setSize(100, 80);
 		this.pack();
-		
+
 		performDemo(console.getConsoleAPI());
 	}
 
@@ -70,9 +72,10 @@ public class Terminal extends javax.swing.JInternalFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	public static JInternalFrame Init() {
+	public static JInternalFrame Init(JDesktopPane parent) {
 		Terminal term = new Terminal();
-                term.setVisible(true);
+		term.setVisible(true);
+		parent.add(term);
 		return term;
 	}
 

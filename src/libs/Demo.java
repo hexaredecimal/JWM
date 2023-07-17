@@ -11,10 +11,10 @@ public class Demo {
 		Demo demo = new Demo();
 		demo.createUI();
 	}
-	
+
 	private void performDemo(ConsoleAPI consoleAPI) {
 		consoleAPI.clear();
-		
+
 		consoleAPI.setStringAt(4, 57, "Demon", Color.BLUE, Color.GREEN);
 		consoleAPI.setStringAt(19, 75, "'Stargate SG1' will live forever!", Color.CYAN, Color.DARK_GRAY);
 		consoleAPI.setCharAt(3, 6, 'D');
@@ -30,10 +30,10 @@ public class Demo {
 		consoleAPI.setCharAt(24, 77, 'U');
 		consoleAPI.setCharAt(24, 78, 'V');
 		consoleAPI.setCharAt(24, 79, 'W', Color.BLACK, Color.WHITE);
-		
-		consoleAPI.refresh();				
+
+		consoleAPI.refresh();
 	}
-	
+
 	private void createUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -41,14 +41,14 @@ public class Demo {
 				JFrame frame = new JFrame("Swing Text Console");
 
 				TextConsole console = new TextConsole();
-								
+
 				frame.setLayout(new BorderLayout());
 				frame.add(console, BorderLayout.CENTER);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setResizable(false);
 				frame.pack();
 				frame.setVisible(true);
-				
+
 				performDemo(console.getConsoleAPI());
 			}
 		});

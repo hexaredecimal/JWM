@@ -1,22 +1,15 @@
 package main;
 
-import applications.Browser;
-import applications.Calculator;
-import applications.FileBrowser;
-import applications.MineSweeper;
-import applications.Terminal;
-import equcyph.EquCyph;
-import ide.NewWindow;
-
+import libs.ApplicationClasses;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JLayeredPane;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -25,45 +18,48 @@ import net.miginfocom.swing.MigLayout;
 
 public class Test extends javax.swing.JFrame {
 
-    public Test() {
-        initComponents();
-        layer.setLayout(new MigLayout("fill, inset 0", "[fill]", "[fill]"));
-        layer.setLayer(menu, JLayeredPane.POPUP_LAYER);
-        layer.add(menu, "pos 0 0.5al 60 n", 0);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); //set maximized window
+	public Test() {
+		initComponents();
+		layer.setLayout(new MigLayout("fill, inset 0", "[fill]", "[fill]"));
+		layer.setLayer(menu, JLayeredPane.POPUP_LAYER);
+		layer.add(menu, "pos 0 0.5al 60 n", 0);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // set maximized window
 
-        Class[] appList = new Class[]{Browser.class, Calculator.class, NewWindow.class, Terminal.class, EquCyph.class, FileBrowser.class, MineSweeper.class};
-        menu.addEvent((int index) -> {
-            Class c = appList[index];
-            try {
-                Method init = c.getMethod("Init", null);
-                try {
-                    this.desktop.add((Component) init.invoke(c, null));
-                } catch (Exception e) {
+		menu.addEvent((index) -> {
+			Thread t = new Thread() {
+				@Override
+				public void run() {
+					try {
+						Class<?> c = ApplicationClasses.getAppByIndex(index);
+						Method init = c.getMethod("Init", JDesktopPane.class);
+						init.invoke(c, Test.this.desktop);
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				}
+			};
 
-                }
-            } catch (Exception e) {
+			String appName = ApplicationClasses.getAppByIndex(index).getName();
 
-            }
-        });
+			t.start();
+			System.out.println(appName + " running on thread: " + t.getName());
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+			}
 
-    }
+		});
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
+	}
+
+	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		menu = new menu.Menu();
 		layer = new javax.swing.JLayeredPane();
-		ImageIcon icon = new ImageIcon(getClass().getResource("a.jpg"));
-		Image img = icon.getImage();
-		desktop = new javax.swing.JDesktopPane() {
-			public void paintComponent(Graphics g) {
-				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-			}
-		};
-
+		setBackgroundImage("bg3.png");
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setUndecorated(true);
 
@@ -95,53 +91,66 @@ public class Test extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
+	private void setBackgroundImage(String image) {
+		ImageIcon icon = new ImageIcon(getClass().getResource(image));
+		Image img = icon.getImage();
+		desktop = new javax.swing.JDesktopPane() {
+			private static final long serialVersionUID = 1L;
+
+			public void paintComponent(Graphics g) {
+				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+			}
+
+		};
+	}
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+		// (optional) ">
+		/*
 		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
 		 * look and feel. For details see
 		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        // </editor-fold>
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		// </editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Thread main = new Thread(() -> {
-                    new Test().setVisible(true);
-                });
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				Thread main = new Thread(() -> {
+					new Test().setVisible(true);
+				});
 
-                main.start();
-                try {
-                    main.join();
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+				main.start();
+				try {
+					main.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JDesktopPane desktop;

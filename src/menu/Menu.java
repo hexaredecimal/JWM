@@ -10,88 +10,80 @@ import net.miginfocom.swing.MigLayout;
 
 public class Menu extends javax.swing.JPanel {
 
-    private List<EventMenu> events;
+	private List<EventMenu> events;
 
-    public Menu() {
-        initComponents();
-        setOpaque(false);
-        events = new ArrayList<>();
-        panel.setLayout(new MigLayout("wrap, fill, inset 0", "[center]", "[center]"));
-        addSpace(20);
-        
-        String[] icons = new String[] {"browser", "calc", "editor", "term", "graph", "files", "mine"}; 
-        
-        int index = 0; 
-        for (String icon : icons) {
-            addItem(icon,index++);
-        }
+	public Menu() {
+		initComponents();
+		setOpaque(false);
+		events = new ArrayList<>();
+		panel.setLayout(new MigLayout("wrap, fill, inset 0", "[center]", "[center]"));
+		addSpace(20);
 
-        addSpace(20);
-        repaint();
-        revalidate();
-    }
+		String[] icons = new String[] { "browser", "calc", "editor", "term", "graph", "files", "mine", "7" };
 
-    private void addSpace(int size) {
-        panel.add(new JLabel(), "h " + size + "!");
-    }
+		int index = 0;
+		for (String icon : icons) {
+			addItem(icon, index++);
+		}
 
-    private void addItem(String icon, int index) {
-        MenuItem item = new MenuItem();
-        item.setImage(new ImageIcon(getClass().getResource("/icon/" + icon + ".png")).getImage());
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                runEvent(index);
-            }
-        });
-        panel.add(item, "w 50!, h 50!");
-    }
+		addSpace(20);
+		repaint();
+		revalidate();
+	}
 
-    public void addEvent(EventMenu event) {
-        events.add(event);
-    }
+	private void addSpace(int size) {
+		panel.add(new JLabel(), "h " + size + "!");
+	}
 
-    private void runEvent(int index) {
-        for (EventMenu event : events) {
-            event.menuSelected(index);
-        }
-    }
+	private void addItem(String icon, int index) {
+		MenuItem item = new MenuItem();
+		item.setImage(new ImageIcon(getClass().getResource("/icon/" + icon + ".png")).getImage());
+		item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				runEvent(index);
+			}
+		});
+		panel.add(item, "w 50!, h 50!");
+	}
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	public void addEvent(EventMenu event) {
+		events.add(event);
+	}
 
-        panel = new swing.PanelRound();
+	private void runEvent(int index) {
+		for (EventMenu event : events) {
+			event.menuSelected(index);
+		}
+	}
 
-        panel.setRoundBottomRight(50);
-        panel.setRoundTopRight(50);
+	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated
+	// Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 107, Short.MAX_VALUE)
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
-        );
+		panel = new swing.PanelRound();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+		panel.setRoundBottomRight(50);
+		panel.setRoundTopRight(50);
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.PanelRound panel;
-    // End of variables declaration//GEN-END:variables
+		javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+		panel.setLayout(panelLayout);
+		panelLayout.setHorizontalGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 107, Short.MAX_VALUE));
+		panelLayout.setVerticalGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 616, Short.MAX_VALUE));
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGap(0, 0, 0)));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+	}// </editor-fold>//GEN-END:initComponents
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private swing.PanelRound panel;
+	// End of variables declaration//GEN-END:variables
 }
